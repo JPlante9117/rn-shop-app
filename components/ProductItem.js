@@ -10,21 +10,25 @@ const ProductItem = (props) => {
     }
     
     return (
-        <TouchFeedback onPress={props.handleDetailsPress}>
-            <View style={styles.product}>
-                <View style={styles.imgContainer}>
-                    <Image style={styles.image} source={{uri: props.imageUrl}} />
-                </View>
-                <View style={styles.details}>
-                    <Text style={styles.title}>{props.title}</Text>
-                    <Text style={styles.price}>${props.price.toFixed(2)}</Text>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button color={Colors.primary} title="View Details" onPress={props.handleDetailsPress} />
-                    <Button color={Colors.primary} title="Add To Cart" onPress={props.handleAddCartPress}/>
-                </View>
+        <View style={styles.product}>
+            <View style={styles.hideOverflow}>
+                <TouchFeedback onPress={props.handleDetailsPress} useForeground>
+                    <View>
+                        <View style={styles.imgContainer}>
+                            <Image style={styles.image} source={{uri: props.imageUrl}} />
+                        </View>
+                        <View style={styles.details}>
+                            <Text style={styles.title}>{props.title}</Text>
+                            <Text style={styles.price}>${props.price.toFixed(2)}</Text>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <Button color={Colors.primary} title="View Details" onPress={props.handleDetailsPress} />
+                            <Button color={Colors.primary} title="Add To Cart" onPress={props.handleAddCartPress}/>
+                        </View>
+                    </View>
+                </TouchFeedback>
             </View>
-        </TouchFeedback>
+        </View>
     )
 }
 
@@ -46,6 +50,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 300,
         margin: 20
+    },
+    hideOverflow: {
+        overflow: 'hidden',
+        borderRadius: 10
     },
     image: {
         width: '100%',
