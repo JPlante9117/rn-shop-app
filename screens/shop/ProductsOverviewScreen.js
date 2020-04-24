@@ -11,7 +11,7 @@ const ProductsOverviewScreen = props => {
         <FlatList
             data={products}
             keyExtractor={item => item.id}
-            renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} handleDetailsPress={() => {}} handleAddCartPress={() => {}} />}
+            renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} handleDetailsPress={() => props.navigation.navigate('Details', {productId: itemData.item.id, productTitle: itemData.item.title})} handleAddCartPress={() => {}} />}
         />
     )
 }

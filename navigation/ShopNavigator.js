@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { enableScreens } from 'react-native-screens'
+import ProductDetailsScreen, { productDetailsOptions } from '../screens/shop/ProductDetailsScreen'
 
 enableScreens()
 
@@ -43,6 +44,11 @@ const ShopNavigator = props => {
                     name="Overview"
                     component={ProductsOverviewScreen}
                     options={productOverviewOptions}
+                />
+                <Stack.Screen
+                    name="Details"
+                    component={ProductDetailsScreen}
+                    options={productDetailsOptions}
                 />
             </Stack.Navigator>
         </NavigationContainer>
