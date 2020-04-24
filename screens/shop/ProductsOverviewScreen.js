@@ -15,4 +15,10 @@ const ProductsOverviewScreen = props => {
     )
 }
 
+export const productOverviewOptions = navData => {
+    return {
+        title: 'Nozama'
+    }
+}
+
 export default ProductsOverviewScreen

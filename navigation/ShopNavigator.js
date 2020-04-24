@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen'
+import ProductsOverviewScreen, { productOverviewOptions } from '../screens/shop/ProductsOverviewScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
@@ -42,6 +42,7 @@ const ShopNavigator = props => {
                 <Stack.Screen
                     name="Overview"
                     component={ProductsOverviewScreen}
+                    options={productOverviewOptions}
                 />
             </Stack.Navigator>
         </NavigationContainer>
