@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, TouchableNativeFeedback, View, Image, Text, StyleSheet, Platform, Button } from 'react-native'
 import Colors from '../constants/Colors'
+import DefaultText from './DefaultText'
 
 const ProductItem = (props) => {
     let TouchFeedback = TouchableOpacity
@@ -19,7 +20,7 @@ const ProductItem = (props) => {
                         </View>
                         <View style={styles.details}>
                             <Text style={styles.title}>{props.title}</Text>
-                            <Text style={styles.price}>${props.price.toFixed(2)}</Text>
+                            <DefaultText style={styles.price}>${props.price.toFixed(2)}</DefaultText>
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button color={Colors.primary} title="View Details" onPress={props.handleDetailsPress} />
@@ -68,12 +69,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        marginVertical: 4,
+        marginVertical: 2,
+        fontFamily: 'open-sans-bold'
     },
     price: {
-        fontSize: 14,
         color: '#888',
-        marginHorizontal: 20
+        marginHorizontal: 20,
     },
     details: {
         alignItems: 'center',

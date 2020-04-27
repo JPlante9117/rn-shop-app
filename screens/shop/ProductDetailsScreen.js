@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
+import DefaultText from '../../components/DefaultText'
 
 const ProductDetailsScreen = props => {
 
@@ -17,8 +18,8 @@ const ProductDetailsScreen = props => {
                 <Button color={Colors.primary} title="Add To Cart" onPress={() => {}} />
             </View>
             <ScrollView style={styles.textDetails}>
-                <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
-                <Text style={styles.description}>{selectedProduct.description}</Text>
+                <DefaultText style={styles.price}>${selectedProduct.price.toFixed(2)}</DefaultText>
+                <DefaultText style={styles.description}>{selectedProduct.description}</DefaultText>
             </ScrollView>
         </View>
     )
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     description: {
-        fontSize: 14,
         textAlign: 'center'
     },
     actions: {

@@ -17,22 +17,14 @@ const ShopNavigator = props => {
         headerStyle: {
             backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
         },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
+        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
+        headerTitleStyle: {
+            fontFamily: 'open-sans-bold'
+        },
+        headerBackTitleStyle: {
+            fontFamily: 'open-sans'
+        }
     }
-    
-    // const ProductsNavigator = () => {
-    //     return(
-    //         <Stack.Navigator
-    //             screenOptions={baseHeaderStyles}
-    //             initialRouteName="Overview"
-    //         >
-    //             <Stack.Screen
-    //                 name="Overview"
-    //                 component={ProductsOverviewScreen}
-    //             />
-    //         </Stack.Navigator>
-    //     )
-    // }
     
     return(
         <NavigationContainer>
