@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import CartItem from '../../components/shop/CartItem'
 import { removeFromCart } from '../../store/actions/cartActions'
+import { addOrder } from '../../store/actions/ordersActions'
 
 const CartScreen = props => {
     const dispatch = useDispatch()
@@ -39,10 +40,18 @@ const CartScreen = props => {
             </View>
             <View style={styles.summary}>
                 <DefaultText style={styles.summaryText}>Total: <DefaultText style={styles.totalPrice}>${cartTotal.toFixed(2)}</DefaultText></DefaultText>
-                <Button title="Place Order" color={Colors.accent} disabled={cartItems.length === 0} />
+                <Button title="Place Order" color={Colors.accent} disabled={cartItems.length === 0} onPress={() => {
+                    dispatch(addOrder(cartItems, cartTotal))
+                }} />
             </View>
         </View>
     )
+}
+
+export const cartOptions = navData => {
+    return {
+        title: 'Checkout'
+        }
 }
 
 const styles = StyleSheet.create({
