@@ -37,12 +37,12 @@ export default (state = initialState, action) => {
             }
         case REMOVE_FROM_CART:
             const removedProduct = action.product
-            prodPrice = removedProduct.price
-            prodTitle = removedProduct.title
+            prodPrice = removedProduct.productPrice
+            prodTitle = removedProduct.productTitle
 
-            if(state.items[removedProduct.id].quantity === 1){
+            if(state.items[removedProduct.productId].quantity === 1){
                 const remainingItems = state.items
-                delete remainingItems[removedProduct.id]
+                delete remainingItems[removedProduct.productId]
                 
                 return {
                     ...state,
@@ -51,15 +51,15 @@ export default (state = initialState, action) => {
                 }
             } else {
                 const updatedCartItem = new CartItem(
-                    state.items[removedProduct.id].quantity - 1,
+                    state.items[removedProduct.productId].quantity - 1,
                     prodPrice,
                     prodTitle,
-                    state.items[removedProduct.id].sum - prodPrice
+                    state.items[removedProduct.productId].sum - prodPrice
                 )
 
                 return {
                     ...state,
-                    items: {...state.items, [removedProduct.id]: updatedCartItem},
+                    items: {...state.items, [removedProduct.productId]: updatedCartItem},
                     totalPrice: state.totalPrice - prodPrice
                 }
             }

@@ -2,10 +2,13 @@ import React from 'react'
 import { View, StyleSheet, Button } from 'react-native'
 import DefaultText from '../../components/UI/DefaultText'
 import { FlatList } from 'react-native-gesture-handler'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
+import CartItem from '../../components/shop/CartItem'
+import { removeFromCart } from '../../store/actions/cartActions'
 
 const CartScreen = props => {
+    const dispatch = useDispatch()
     const cartTotal = useSelector(state => state.cart.totalPrice)
     const cartItems = useSelector(state => {
         const transformedCart = []
@@ -27,7 +30,8 @@ const CartScreen = props => {
                 <DefaultText>Order Summary:</DefaultText>
                 <FlatList 
                     data={cartItems}
-                    renderItem={itemData => <DefaultText>{itemData.item.title}</DefaultText>}
+                    keyExtractor={item => item.productId}
+                    renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} price={itemData.item.productPrice} onRemove={() => dispatch(removeFromCart(itemData.item)) } />}
                 />
             </View>
             <View style={styles.summary}>
