@@ -1,4 +1,5 @@
-import { ADD_TO_CART } from "../actions/cartActions"
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cartActions"
+import CartItem from '../../models/cartItem'
 
 const initialState = {
     items: {},
@@ -9,23 +10,57 @@ export default (state = initialState, action) => {
     switch(action.type){
         case ADD_TO_CART:
             const addedProduct = action.product
-            const prodPrice = addedProduct.price
-            const prodTitle = addedProduct.title
+            let prodPrice = addedProduct.price
+            let prodTitle = addedProduct.title
+
+            let currentCartItem
 
             if (state.items[addedProduct.id]){
-                const updatedCartItem = new CartItem(
-                    ...state.items[addedProduct.id].quantity + 1,
-                    prodPrice, prodTitle, ...state.items[addedProduct.id].sum + prodPrice
+                currentCartItem = new CartItem(
+                    state.items[addedProduct.id].quantity + 1,
+                    prodPrice,
+                    prodTitle,
+                    state.items[addedProduct.id].sum + prodPrice
                 )
+            } else {
+                currentCartItem = new CartItem(
+                    1,
+                    prodPrice,
+                    prodTitle,
+                    prodPrice
+                )
+            }
+            return {
+                ...state,
+                items: {...state.items, [addedProduct.id]: currentCartItem},
+                totalPrice: state.totalPrice + prodPrice
+            }
+        case REMOVE_FROM_CART:
+            const removedProduct = action.product
+            prodPrice = removedProduct.price
+            prodTitle = removedProduct.title
+
+            if(state.items[removedProduct.id].quantity === 1){
+                const remainingItems = state.items
+                delete remainingItems[removedProduct.id]
+                
                 return {
-                    items: {...state.items, [addedProduct.id]: updatedCartItem},
-                    totalPrice: state.totalPrice + prodPrice
+                    ...state,
+                    items: remainingItems,
+                    totalPrice: state.totalPrice - prodPrice
                 }
             } else {
-                const newCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice)
+                const updatedCartItem = new CartItem(
+                    state.items[removedProduct.id].quantity - 1,
+                    prodPrice,
+                    prodTitle,
+                    state.items[removedProduct.id].sum - prodPrice
+                )
+
                 return {
-                    items: {...state.items, [addedProduct.id]: newCartItem},
-                    totalPrice: state.totalPrice + prodPrice
+                    ...state,
+                    items: {...state.items, [removedProduct.id]: updatedCartItem},
+                    totalPrice: state.totalPrice - prodPrice
                 }
             }
         default: 
