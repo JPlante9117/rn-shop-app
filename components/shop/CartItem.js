@@ -27,11 +27,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginHorizontal: 20,
-        borderRadius: 10
+        borderRadius: 10,
     },
     itemData: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 8
     },
     quantity: {
         color: '#888',
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
         padding: 10,
         marginLeft: 20,
         backgroundColor: 'red',
-        height: '100%',
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10
     }

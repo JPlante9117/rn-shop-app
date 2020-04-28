@@ -21,13 +21,13 @@ const CartScreen = props => {
                 sum: state.cart.items[key].sum
             })
         }
-        return transformedCart
+        return transformedCart.sort((a, b) => a.productId > b.productId ? 1 : -1)
     })
 
     return (
         <View style={styles.screen}>
             <View style={styles.items}>
-                <DefaultText>Order Summary:</DefaultText>
+                <DefaultText style={styles.titleText}>Order Summary:</DefaultText>
                 <FlatList 
                     data={cartItems}
                     keyExtractor={item => item.productId}
@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
     items: {
         margin: 20,
         
+    },
+    titleText: {
+        marginBottom: 10,
+        fontFamily: 'open-sans-bold',
+        fontSize: 20
     }
 })
 

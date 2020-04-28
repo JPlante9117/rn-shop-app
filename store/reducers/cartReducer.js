@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
                     state.items[addedProduct.id].quantity + 1,
                     prodPrice,
                     prodTitle,
-                    state.items[addedProduct.id].sum + prodPrice
+                    (state.items[addedProduct.id].sum + prodPrice)
                 )
             } else {
                 currentCartItem = new CartItem(
