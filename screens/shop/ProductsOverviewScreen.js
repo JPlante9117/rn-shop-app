@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { View, FlatList, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, FlatList, Text, StyleSheet, Dimensions, Platform } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import ProductItem from '../../components/ProductItem'
+import ProductItem from '../../components/shop/ProductItem'
 import * as cartActions from '../../store/actions/cartActions'
 import Animated, { Easing } from 'react-native-reanimated'
-import Colors from '../../constants/Colors'
-import DefaultText from '../../components/DefaultText'
-import AddToCartPopup from '../../components/AddToCartPopup'
+import AddToCartPopup from '../../components/UI/AddToCartPopup'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import HeaderButton from '../../components/UI/HeaderButton'
 
 const ProductsOverviewScreen = props => {
     
@@ -57,7 +57,10 @@ const styles = StyleSheet.create({
 
 export const productOverviewOptions = navData => {
     return {
-        title: 'Nozama'
+        title: 'Nozama',
+        headerRight: () => <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item title="Cart" iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} onPress={() => navData.navigation.navigate('Cart')}/>
+        </HeaderButtons>
     }
 }
 

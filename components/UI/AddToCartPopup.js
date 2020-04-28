@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Animated from 'react-native-reanimated'
 import DefaultText from './DefaultText'
-import Colors from '../constants/Colors'
+import Colors from '../../constants/Colors'
 
 const AddToCartPopup = props => {
     return(

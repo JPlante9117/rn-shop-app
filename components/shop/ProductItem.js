@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, TouchableNativeFeedback, View, Image, Text, StyleSheet, Platform, Button } from 'react-native'
-import Colors from '../constants/Colors'
-import DefaultText from './DefaultText'
+import Colors from '../../constants/Colors'
+import DefaultText from '../UI/DefaultText'
 
 const ProductItem = (props) => {
     let TouchFeedback = TouchableOpacity

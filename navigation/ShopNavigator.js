@@ -6,6 +6,7 @@ import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { enableScreens } from 'react-native-screens'
 import ProductDetailsScreen, { productDetailsOptions } from '../screens/shop/ProductDetailsScreen'
+import CartScreen from '../screens/shop/CartScreen'
 
 enableScreens()
 
@@ -41,6 +42,10 @@ const ShopNavigator = props => {
                     name="Details"
                     component={ProductDetailsScreen}
                     options={productDetailsOptions}
+                />
+                <Stack.Screen
+                    name="Cart"
+                    component={CartScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>

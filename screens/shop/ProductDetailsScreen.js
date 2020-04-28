@@ -2,10 +2,10 @@ import React, { useRef } from 'react'
 import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
-import DefaultText from '../../components/DefaultText'
+import DefaultText from '../../components/UI/DefaultText'
 import * as cartActions from '../../store/actions/cartActions'
 import Animated, { Easing } from 'react-native-reanimated'
-import AddToCartPopup from '../../components/AddToCartPopup'
+import AddToCartPopup from '../../components/UI/AddToCartPopup'
 
 const ProductDetailsScreen = props => {
 
