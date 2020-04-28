@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
                 return {
                     ...state,
                     items: remainingItems,
-                    totalPrice: state.totalPrice - prodPrice
+                    totalPrice: state.totalPrice - prodPrice < 0 ? 0 : state.totalPrice - prodPrice
                 }
             } else {
                 const updatedCartItem = new CartItem(
@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
                 return {
                     ...state,
                     items: {...state.items, [removedProduct.productId]: updatedCartItem},
-                    totalPrice: state.totalPrice - prodPrice
+                    totalPrice: state.totalPrice - prodPrice < 0 ? 0 : state.totalPrice - prodPrice 
                 }
             }
         default: 

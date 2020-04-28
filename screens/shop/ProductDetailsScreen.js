@@ -1,11 +1,13 @@
 import React, { useRef } from 'react'
-import { View, Text, Image, Button, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, Image, Button, StyleSheet, ScrollView, Platform } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import DefaultText from '../../components/UI/DefaultText'
 import * as cartActions from '../../store/actions/cartActions'
 import Animated, { Easing } from 'react-native-reanimated'
 import AddToCartPopup from '../../components/UI/AddToCartPopup'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../../components/UI/HeaderButton'
 
 const ProductDetailsScreen = props => {
 
@@ -82,8 +84,11 @@ const styles = StyleSheet.create({
 
 export const productDetailsOptions = navData => {
     return {
-        title: navData.route.params.productTitle
-    }
+        title: navData.route.params.productTitle,
+        headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item title="Cart" iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} onPress={() => navData.navigation.navigate('Cart')}/>
+        </HeaderButtons>
+        }
 }
 
 export default ProductDetailsScreen

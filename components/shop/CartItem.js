@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 20,
         borderRadius: 10,
+        marginVertical: 8
     },
     itemData: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 8
     },
     quantity: {
         color: '#888',

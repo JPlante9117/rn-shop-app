@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Button } from 'react-native'
+import { View, StyleSheet, Button, Dimensions } from 'react-native'
 import DefaultText from '../../components/UI/DefaultText'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
@@ -28,11 +28,14 @@ const CartScreen = props => {
         <View style={styles.screen}>
             <View style={styles.items}>
                 <DefaultText style={styles.titleText}>Order Summary:</DefaultText>
-                <FlatList 
+                {cartItems.length === 0 ? 
+                    <DefaultText style={styles.emptyMessageText}>Your Cart Is Empty</DefaultText>
+                 : 
+                 <FlatList 
                     data={cartItems}
                     keyExtractor={item => item.productId}
                     renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} price={itemData.item.productPrice} onRemove={() => dispatch(removeFromCart(itemData.item)) } />}
-                />
+                />}
             </View>
             <View style={styles.summary}>
                 <DefaultText style={styles.summaryText}>Total: <DefaultText style={styles.totalPrice}>${cartTotal.toFixed(2)}</DefaultText></DefaultText>
@@ -73,6 +76,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontFamily: 'open-sans-bold',
         fontSize: 20
+    },
+    emptyMessageText: {
+        fontSize: 40,
+        color: '#ccc',
+        textAlign: 'center',
+        marginTop: 50
     }
 })
 
