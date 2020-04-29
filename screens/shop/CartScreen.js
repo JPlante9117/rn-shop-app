@@ -55,7 +55,7 @@ const CartScreen = props => {
                  <FlatList 
                     data={cartItems}
                     keyExtractor={item => item.productId}
-                    renderItem={itemData => <CartItem quantity={itemData.item.quantity} deletable title={itemData.item.productTitle} price={itemData.item.productPrice} onRemove={() => dispatch(removeFromCart(itemData.item)) } />}
+                    renderItem={itemData => <CartItem quantity={itemData.item.quantity} deletable title={itemData.item.productTitle} price={itemData.item.sum} onRemove={() => dispatch(removeFromCart(itemData.item)) } />}
                 />}
             </View>
             <OrderPlacedPopup opacity={fadeAnim} navigation={props.navigation}/>
