@@ -14,7 +14,7 @@ const UserProductsScreen = props => {
     const dispatch = useDispatch()
 
     const selectItemHandler = (id, title) => {
-
+        props.navigation.navigate('Edit Products', {pid: id, title: title})
     }
 
     const deleteItemHandler = (id) => {
@@ -24,7 +24,7 @@ const UserProductsScreen = props => {
     return <FlatList
             data={userProducts}
             keyExtractor={item => item.id}
-            renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price}>
+            renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} onSelect={() => selectItemHandler(itemData.item.id, itemData.item.title)}>
                     <Button color={Colors.primary} title="Edit Listing" onPress={() => selectItemHandler(itemData.item.id, itemData.item.title)} />
                     <Button color={Colors.primary} title="Remove From Store" onPress={() => deleteItemHandler(itemData.item.id)}/>
             </ProductItem>}

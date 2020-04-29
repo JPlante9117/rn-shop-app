@@ -13,6 +13,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/UI/HeaderButton'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import UserProductsScreen, {userProductsOptions} from '../screens/user/UserProductsScreen'
+import EditProductsScreen, { editProductsOptions } from '../screens/user/EditProductsScreen'
 
 enableScreens()
 
@@ -85,6 +86,11 @@ const ShopNavigator = props => {
                     component={UserProductsScreen}
                     options={userProductsOptions}
                     />
+                <Stack.Screen
+                    name="Edit Products"
+                    component={EditProductsScreen}
+                    options={editProductsOptions}
+                />
             </Stack.Navigator>
         )
     }
