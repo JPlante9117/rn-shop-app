@@ -3,13 +3,14 @@ import { View, Button, StyleSheet } from 'react-native'
 import DefaultText from '../UI/DefaultText'
 import Colors from '../../constants/Colors'
 import CartItem from './CartItem'
+import Card from '../UI/Card'
 
 const OrderItem = props => {
 
     const [showDetails, setShowDetails] = useState(false)
 
     return(
-        <View style={styles.orderItem}>
+        <Card style={styles.orderItem}>
             <View style={styles.summary}>
                 <View style={styles.orderTotalWrapper}>
                     <DefaultText>Order total:</DefaultText><DefaultText style={styles.cost}>${props.amount}</DefaultText>
@@ -26,19 +27,12 @@ const OrderItem = props => {
                     {props.items.map(item => <CartItem key={item.productId} quantity={item.quantity} title={item.productTitle} price={item.sum} />)}
                     </View>}
             </View>
-        </View>
+        </Card>
     )
 }
 
 const styles = StyleSheet.create({
     orderItem: {
-        elevation: 2,
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 8,
-        borderRadius: 10,
-        backgroundColor: 'white',
         margin: 20,
         padding: 10
     },

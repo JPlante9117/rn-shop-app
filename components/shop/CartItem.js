@@ -3,10 +3,11 @@ import { StyleSheet, View, Platform } from 'react-native'
 import DefaultText from '../UI/DefaultText'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
+import Card from '../UI/Card'
 
 const CartItem = props => {
     return(
-        <View style={styles.cartItem}>
+        <Card style={styles.cartItem}>
             <View style={styles.itemData}>
                 <DefaultText style={styles.itemTitle}>{props.title.length < 15 ? props.title : props.title.substring(0, 15).concat('...')}</DefaultText>
                 <DefaultText style={styles.quantity}> x {props.quantity}</DefaultText>
@@ -17,7 +18,7 @@ const CartItem = props => {
                     <Ionicons name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'} size={23} color={'white'} />
                 </TouchableOpacity>}
             </View>
-        </View>
+        </Card>
     )
 }
 
@@ -29,13 +30,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 10,
         marginVertical: 8,
-        elevation: 2,
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 8,
-        borderRadius: 10,
-        backgroundColor: 'white',
         margin: 20,
         minHeight: 44
     },

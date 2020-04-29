@@ -4,7 +4,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
 import ProductItem from '../../components/shop/ProductItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button, Platform } from 'react-native'
+import { Button, Platform, Alert } from 'react-native'
 import Colors from '../../constants/Colors'
 import { deleteProduct } from '../../store/actions/productsActions'
 
@@ -17,8 +17,10 @@ const UserProductsScreen = props => {
         props.navigation.navigate('Edit Products', {pid: id, title: title})
     }
 
-    const deleteItemHandler = (id) => {
-        dispatch(deleteProduct(id))
+    const deleteAlert = id => {
+        Alert.alert('Are you sure?', 'Do you really want to delete this item?',
+        [{text:'Cancel', style: 'default'},
+        {text: 'Yes', style: 'destructive', onPress: () => dispatch(deleteProduct(id))}])
     }
 
     return <FlatList
@@ -26,7 +28,7 @@ const UserProductsScreen = props => {
             keyExtractor={item => item.id}
             renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} onSelect={() => selectItemHandler(itemData.item.id, itemData.item.title)}>
                     <Button color={Colors.primary} title="Edit Listing" onPress={() => selectItemHandler(itemData.item.id, itemData.item.title)} />
-                    <Button color={Colors.primary} title="Remove From Store" onPress={() => deleteItemHandler(itemData.item.id)}/>
+                    <Button color={Colors.primary} title="Remove From Store" onPress={() => deleteAlert(itemData.item.id)}/>
             </ProductItem>}
             />
 }
