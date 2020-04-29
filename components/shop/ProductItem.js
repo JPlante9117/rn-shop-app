@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginHorizontal: 20,
-        height: '25%'
+        height: '23%'
     },
     product: {
         elevation: 2,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
     details: {
         alignItems: 'center',
-        height: '15%'
+        height: '17%'
     }
 })
 
