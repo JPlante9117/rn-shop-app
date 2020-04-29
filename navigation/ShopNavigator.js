@@ -12,6 +12,7 @@ import CartScreen, { cartOptions } from '../screens/shop/CartScreen'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/UI/HeaderButton'
 import { Ionicons, Entypo } from '@expo/vector-icons'
+import UserProductsScreen, {userProductsOptions} from '../screens/user/UserProductsScreen'
 
 enableScreens()
 
@@ -72,6 +73,21 @@ const ShopNavigator = props => {
             </Stack.Navigator>
         )
     }
+
+    const userStack = () => {
+        return(
+            <Stack.Navigator
+                screenOptions={baseHeaderStyles}
+                initialRouteName="UserProducts"
+            >
+                <Stack.Screen
+                    name="User Products"
+                    component={UserProductsScreen}
+                    options={userProductsOptions}
+                    />
+            </Stack.Navigator>
+        )
+    }
     
     return(
         <NavigationContainer>
@@ -95,6 +111,14 @@ const ShopNavigator = props => {
                         drawerIcon: drawerConfig => <Ionicons name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} size={23} color={drawerConfig.tintColor}/>
                     }}
                     
+                />
+                <Drawer.Screen 
+                    name="User"
+                    component={userStack}
+                    options={{
+                        drawerIcon: drawerConfig => <Ionicons name={Platform.OS === 'android' ? 'md-create' : 'ios-create'} size={23} color={drawerConfig.tintColor}/>,
+                        drawerLabel: 'My Store'
+                    }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>

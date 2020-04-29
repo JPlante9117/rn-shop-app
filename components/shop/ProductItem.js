@@ -24,7 +24,7 @@ const ProductItem = (props) => {
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button color={Colors.primary} title="View Details" onPress={props.handleDetailsPress} />
-                            <Button color={Colors.primary} title="Add To Cart" onPress={props.handleAddCartPress}/>
+                            { props.shopping && <Button color={Colors.primary} title="Add To Cart" onPress={props.handleAddCartPress}/>}
                         </View>
                     </View>
                 </TouchFeedback>

@@ -42,7 +42,7 @@ const ProductsOverviewScreen = props => {
                     setSelectedItem(itemData.item.title)
                     fadeIn()
                     setTimeout(() => fadeOut(), 2000)
-                }} />}
+                }} shopping />}
             />
             <AddToCartPopup opacity={fadeAnim} itemName={selectedItem} />
         </View>
