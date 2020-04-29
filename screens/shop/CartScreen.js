@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { View, StyleSheet, Button, Dimensions } from 'react-native'
 import DefaultText from '../../components/UI/DefaultText'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import CartItem from '../../components/shop/CartItem'
-import { removeFromCart } from '../../store/actions/cartActions'
+import { removeFromCart, clearCart } from '../../store/actions/cartActions'
 import { addOrder } from '../../store/actions/ordersActions'
+import Animated, { Easing } from 'react-native-reanimated'
+import OrderPlacedPopup from '../../components/UI/OrderPlacedPopup'
 
 const CartScreen = props => {
     const dispatch = useDispatch()
@@ -25,6 +27,24 @@ const CartScreen = props => {
         return transformedCart.sort((a, b) => a.productId > b.productId ? 1 : -1)
     })
 
+    const fadeAnim = useRef(new Animated.Value(0)).current
+
+    const fadeIn = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 700,
+            easing: Easing.ease
+        }).start()
+    }
+
+    const fadeOut = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 700,
+            easing: Easing.ease
+        }).start()
+    }
+
     return (
         <View style={styles.screen}>
             <View style={styles.items}>
@@ -38,10 +58,14 @@ const CartScreen = props => {
                     renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} price={itemData.item.productPrice} onRemove={() => dispatch(removeFromCart(itemData.item)) } />}
                 />}
             </View>
+            <OrderPlacedPopup opacity={fadeAnim} navigation={props.navigation}/>
             <View style={styles.summary}>
                 <DefaultText style={styles.summaryText}>Total: <DefaultText style={styles.totalPrice}>${cartTotal.toFixed(2)}</DefaultText></DefaultText>
                 <Button title="Place Order" color={Colors.accent} disabled={cartItems.length === 0} onPress={() => {
                     dispatch(addOrder(cartItems, cartTotal))
+                    dispatch(clearCart())
+                    fadeIn()
+                    setTimeout(() => fadeOut(), 6000)
                 }} />
             </View>
         </View>

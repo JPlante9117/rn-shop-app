@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cartActions"
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../actions/cartActions"
 import CartItem from '../../models/cartItem'
 
 const initialState = {
@@ -62,6 +62,12 @@ export default (state = initialState, action) => {
                     items: {...state.items, [removedProduct.productId]: updatedCartItem},
                     totalPrice: state.totalPrice - prodPrice < 0 ? 0 : state.totalPrice - prodPrice 
                 }
+            }
+
+        case CLEAR_CART: 
+            return {
+                items: {},
+                totalPrice: 0
             }
         default: 
             return state
