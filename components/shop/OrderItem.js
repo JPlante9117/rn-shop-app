@@ -7,7 +7,6 @@ import CartItem from './CartItem'
 const OrderItem = props => {
 
     const [showDetails, setShowDetails] = useState(false)
-    const [buttonTitle, setButtonTitle] = useState('Show More')
 
     return(
         <View style={styles.orderItem}>
@@ -18,13 +17,14 @@ const OrderItem = props => {
                 <DefaultText style={styles.date}>{props.date}</DefaultText>
             </View>
             <View>
+                <View style={styles.buttonContainer}>
+                    <Button title={!showDetails ? 'Show More' : 'Show Less'} color={Colors.primary} onPress={() => {
+                        setShowDetails(prevState => !prevState)
+                    }}/>
+                </View>
                 {showDetails && <View style={styles.detailContainer}>
                     {props.items.map(item => <CartItem key={item.productId} quantity={item.quantity} title={item.productTitle} price={item.sum} />)}
                     </View>}
-                <Button title={buttonTitle} color={Colors.primary} onPress={() => {
-                    setShowDetails(prevState => !prevState)
-                    buttonTitle === 'Show More' ? setButtonTitle('Show Less') : setButtonTitle('Show More')
-                }}/>
             </View>
         </View>
     )
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        marginBottom: 10
     },
     orderTotalWrapper: {
         flexDirection: 'row',
@@ -64,6 +65,10 @@ const styles = StyleSheet.create({
     },
     detailContainer: {
         width: '100%'
+    },
+    buttonContainer: {
+        width: '100%',
+        marginVertical: 5
     }
 })
 
