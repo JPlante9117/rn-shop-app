@@ -8,7 +8,7 @@ const CartItem = props => {
     return(
         <View style={styles.cartItem}>
             <View style={styles.itemData}>
-                <DefaultText style={styles.itemTitle}>{props.title}</DefaultText>
+                <DefaultText style={styles.itemTitle}>{props.title.length < 15 ? props.title : props.title.substring(0, 15).concat('...')}</DefaultText>
                 <DefaultText style={styles.quantity}> x {props.quantity}</DefaultText>
             </View>
             <View style={styles.itemData}>

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { FlatList } from 'react-native-gesture-handler'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
+import OrderItem from '../../components/shop/OrderItem'
 
 const OrdersScreen = props => {
 
@@ -13,7 +14,7 @@ const OrdersScreen = props => {
     return(
         <FlatList 
         data={orders}
-        renderItem={itemData => <DefaultText>{itemData.item.totalAmount}</DefaultText>}
+        renderItem={itemData => <OrderItem amount={itemData.item.totalAmount.toFixed(2)} date={itemData.item.readableDate} />}
         />
     )
 }

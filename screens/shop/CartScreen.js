@@ -8,7 +8,7 @@ import CartItem from '../../components/shop/CartItem'
 import { removeFromCart, clearCart } from '../../store/actions/cartActions'
 import { addOrder } from '../../store/actions/ordersActions'
 import Animated, { Easing } from 'react-native-reanimated'
-import OrderPlacedPopup from '../../components/UI/OrderPlacedPopup'
+import OrderPlacedPopup from '../../components/shop/OrderPlacedPopup'
 
 const CartScreen = props => {
     const dispatch = useDispatch()
@@ -63,7 +63,6 @@ const CartScreen = props => {
                 <DefaultText style={styles.summaryText}>Total: <DefaultText style={styles.totalPrice}>${cartTotal.toFixed(2)}</DefaultText></DefaultText>
                 <Button title="Place Order" color={Colors.accent} disabled={cartItems.length === 0} onPress={() => {
                     dispatch(addOrder(cartItems, cartTotal))
-                    dispatch(clearCart())
                     fadeIn()
                     setTimeout(() => fadeOut(), 6000)
                 }} />

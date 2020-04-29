@@ -5,7 +5,7 @@ import Colors from '../../constants/Colors'
 import DefaultText from '../../components/UI/DefaultText'
 import * as cartActions from '../../store/actions/cartActions'
 import Animated, { Easing } from 'react-native-reanimated'
-import AddToCartPopup from '../../components/UI/AddToCartPopup'
+import AddToCartPopup from '../../components/shop/AddToCartPopup'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
 
