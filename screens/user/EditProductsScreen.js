@@ -5,7 +5,8 @@ import DefaultText from '../../components/UI/DefaultText'
 const EditProductsScreen = props => {
     return(
         <View>
-            <DefaultText>EDIT/ADD PRODUCTS</DefaultText>
+            {props.route.params.pid && <DefaultText>EDIT PRODUCTS</DefaultText>}
+            {!props.route.params.pid && <DefaultText>ADD PRODUCTS</DefaultText>}
         </View>
     )
 }

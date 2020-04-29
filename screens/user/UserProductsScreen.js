@@ -4,7 +4,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
 import ProductItem from '../../components/shop/ProductItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button } from 'react-native'
+import { Button, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
 import { deleteProduct } from '../../store/actions/productsActions'
 
@@ -37,7 +37,10 @@ export const userProductsOptions = navData => {
         headerLeft: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
             <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => navData.navigation.toggleDrawer()}/>
         </HeaderButtons>
-        }
-}
+        ,
+        headerRight: () => <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item title="Add" iconName={Platform.OS === 'android' ? 'md-create' : 'ios-create'} onPress={() => navData.navigation.navigate('Edit Products', {title: 'Add New Product'})}/>
+        </HeaderButtons>
+}}
 
 export default UserProductsScreen
