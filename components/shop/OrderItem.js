@@ -19,7 +19,7 @@ const OrderItem = props => {
             </View>
             <View>
                 {showDetails && <View>
-                    {props.items.map(item => <CartItem quantity={item.quantity} title={item.productTitle} amount={item.sum} />)}
+                    {props.items.map(item => <CartItem key={item.productId} quantity={item.quantity} title={item.productTitle} price={item.sum} />)}
                     </View>}
                 <Button title={buttonTitle} color={Colors.primary} onPress={() => {
                     setShowDetails(prevState => !prevState)
