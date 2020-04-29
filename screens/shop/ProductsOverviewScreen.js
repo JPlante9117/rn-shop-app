@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { View, FlatList, Text, StyleSheet, Dimensions, Platform } from 'react-native'
+import { View, FlatList, Text, StyleSheet, Dimensions, Platform, Button } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductItem from '../../components/shop/ProductItem'
 import * as cartActions from '../../store/actions/cartActions'
@@ -7,6 +7,7 @@ import Animated, { Easing } from 'react-native-reanimated'
 import AddToCartPopup from '../../components/shop/AddToCartPopup'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../../components/UI/HeaderButton'
+import Colors from '../../constants/Colors'
 
 const ProductsOverviewScreen = props => {
     
@@ -32,17 +33,26 @@ const ProductsOverviewScreen = props => {
         }).start()
     }
 
+    const selectItemHandler = (id, title) => {
+        props.navigation.navigate('Details', {productId: id, productTitle: title})
+    }
+
+    const addToCartHandler = item => {
+        dispatch(cartActions.addToCart(item))
+        setSelectedItem(item.title)
+        fadeIn()
+        setTimeout(() => fadeOut(), 2000)
+    }
+
     return(
         <View style={styles.screen}>
             <FlatList
                 data={products}
                 keyExtractor={item => item.id}
-                renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} handleDetailsPress={() => props.navigation.navigate('Details', {productId: itemData.item.id, productTitle: itemData.item.title})} handleAddCartPress={() => {
-                    dispatch(cartActions.addToCart(itemData.item))
-                    setSelectedItem(itemData.item.title)
-                    fadeIn()
-                    setTimeout(() => fadeOut(), 2000)
-                }} shopping />}
+                renderItem={itemData => <ProductItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} price={itemData.item.price} onSelect={() => selectItemHandler(itemData.item.id, itemData.item.title)}>
+                    <Button color={Colors.primary} title="View Details" onPress={() => selectItemHandler(itemData.item.id, itemData.item.title)} />
+                    <Button color={Colors.primary} title="Add To Cart" onPress={() => addToCartHandler(itemData.item)}/>
+                </ProductItem>}
             />
             <AddToCartPopup opacity={fadeAnim} itemName={selectedItem} />
         </View>

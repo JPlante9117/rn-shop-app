@@ -1,6 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, TouchableNativeFeedback, View, Image, Text, StyleSheet, Platform, Button } from 'react-native'
-import Colors from '../../constants/Colors'
+import { TouchableOpacity, TouchableNativeFeedback, View, Image, Text, StyleSheet, Platform } from 'react-native'
 import DefaultText from '../UI/DefaultText'
 
 const ProductItem = (props) => {
@@ -13,7 +12,7 @@ const ProductItem = (props) => {
     return (
         <View style={styles.product}>
             <View style={styles.hideOverflow}>
-                <TouchFeedback onPress={props.handleDetailsPress} useForeground>
+                <TouchFeedback onPress={props.onSelect} useForeground>
                     <View>
                         <View style={styles.imgContainer}>
                             <Image style={styles.image} source={{uri: props.imageUrl}} />
@@ -23,8 +22,7 @@ const ProductItem = (props) => {
                             <DefaultText style={styles.price}>${props.price.toFixed(2)}</DefaultText>
                         </View>
                         <View style={styles.buttonContainer}>
-                            <Button color={Colors.primary} title="View Details" onPress={props.handleDetailsPress} />
-                            { props.shopping && <Button color={Colors.primary} title="Add To Cart" onPress={props.handleAddCartPress}/>}
+                            {props.children}
                         </View>
                     </View>
                 </TouchFeedback>
