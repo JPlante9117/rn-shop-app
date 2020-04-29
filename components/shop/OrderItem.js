@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Button, StyleSheet } from 'react-native'
 import DefaultText from '../UI/DefaultText'
 import Colors from '../../constants/Colors'
+import CartItem from './CartItem'
 
 const OrderItem = props => {
+
+    const [showDetails, setShowDetails] = useState(false)
+    const [buttonTitle, setButtonTitle] = useState('Show More')
+
     return(
         <View style={styles.orderItem}>
             <View style={styles.summary}>
@@ -13,7 +18,13 @@ const OrderItem = props => {
                 <DefaultText style={styles.date}>{props.date}</DefaultText>
             </View>
             <View>
-                <Button title="Show More" color={Colors.primary} />
+                {showDetails && <View>
+                    {props.items.map(item => <CartItem quantity={item.quantity} title={item.productTitle} amount={item.sum} />)}
+                    </View>}
+                <Button title={buttonTitle} color={Colors.primary} onPress={() => {
+                    setShowDetails(prevState => !prevState)
+                    buttonTitle === 'Show More' ? setButtonTitle('Show Less') : setButtonTitle('Show More')
+                }}/>
             </View>
         </View>
     )

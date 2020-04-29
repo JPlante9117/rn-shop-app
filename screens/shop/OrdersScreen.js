@@ -14,7 +14,7 @@ const OrdersScreen = props => {
     return(
         <FlatList 
         data={orders}
-        renderItem={itemData => <OrderItem amount={itemData.item.totalAmount.toFixed(2)} date={itemData.item.readableDate} />}
+        renderItem={itemData => <OrderItem amount={itemData.item.totalAmount.toFixed(2)} date={itemData.item.readableDate} items={itemData.item.items} />}
         />
     )
 }
