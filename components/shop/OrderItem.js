@@ -18,7 +18,7 @@ const OrderItem = props => {
                 <DefaultText style={styles.date}>{props.date}</DefaultText>
             </View>
             <View>
-                {showDetails && <View>
+                {showDetails && <View style={styles.detailContainer}>
                     {props.items.map(item => <CartItem key={item.productId} quantity={item.quantity} title={item.productTitle} price={item.sum} />)}
                     </View>}
                 <Button title={buttonTitle} color={Colors.primary} onPress={() => {
@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     date: {
         fontSize: 16,
         color: '#888'
+    },
+    detailContainer: {
+        width: '100%'
     }
 })
 

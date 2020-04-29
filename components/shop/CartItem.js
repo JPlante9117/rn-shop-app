@@ -28,7 +28,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 20,
         borderRadius: 10,
-        marginVertical: 8
+        marginVertical: 8,
+        elevation: 2,
+        shadowColor: 'black',
+        shadowOpacity: 0.26,
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 8,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        margin: 20,
+        minHeight: 44
     },
     itemData: {
         flexDirection: 'row',
@@ -45,7 +54,8 @@ const styles = StyleSheet.create({
     },
     amount: {
         color: 'green',
-        fontSize: 16
+        fontSize: 16,
+        marginHorizontal: 10
     },
     deleteButton: {
         padding: 10,
