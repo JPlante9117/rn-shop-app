@@ -45,6 +45,7 @@ const EditProductsScreen = props => {
             <View key={1} style={styles.formControl}>
                 <DefaultText style={styles.label}>Title:</DefaultText>
                 <TextInput
+                    key={Math.random() * 100}
                     style={styles.input}
                     placeholder={'Enter the Product Name'}
                     value={title}
@@ -55,6 +56,7 @@ const EditProductsScreen = props => {
                 />
                 <DefaultText style={styles.label}>Image URL:</DefaultText>
                 <TextInput
+                    key={Math.random() * 100}
                     ref={inputImgUrl}
                     style={styles.input}
                     placeholder={'Enter an Image URL for the Product'}
@@ -65,6 +67,7 @@ const EditProductsScreen = props => {
                 />
                 <DefaultText style={styles.label}>Price:</DefaultText>
                 <TextInput
+                    key={Math.random() * 100}
                     ref={inputPrice}
                     style={!disablePrice ? styles.input : styles.disabledInput}
                     placeholder={'Enter the Price for the Product'}
@@ -77,6 +80,7 @@ const EditProductsScreen = props => {
                 />
                 <DefaultText style={styles.label}>Description:</DefaultText>
                 <TextInput
+                    key={Math.random() * 100}
                     ref={inputDesc}
                     style={styles.input}
                     placeholder={'Enter a short Description of the Product'}
