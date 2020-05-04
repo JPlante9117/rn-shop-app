@@ -56,7 +56,7 @@ class Input extends React.Component {
                     onChangeText={this.textChangeHandler}
                 />
                 {!this.state.isValid && this.state.touched && (
-                    <Text style={{color: 'red', opacity: 0.4}}>{this.props.errorText}</Text>
+                    <View style={styles.errorContainer}><Text style={styles.errorText}>{this.props.errorText}</Text></View>
                 )}
             </View>
         )
@@ -77,6 +77,13 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc',
         borderBottomWidth: 1
     },
+    errorText: {
+        opacity: 0.4,
+        color: 'red'
+    },
+    errorContainer: {
+        marginVertical: 5
+    }
 })
 
 /*
