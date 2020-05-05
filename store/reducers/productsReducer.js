@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
                 userProducts: state.userProducts.filter(prod => prod.id !== action.pid)
             }
         case CREATE_PRODUCT:
-            const newProd = new Product(new Date().toString(), 'u1', action.productData.title, action.productData.imageUrl, action.productData.description, action.productData.price)
+            const newProd = new Product(action.productData.id, 'u1', action.productData.title, action.productData.imageUrl, action.productData.description, action.productData.price)
             return {
                 ...state,
                 availableProducts: [...state.availableProducts, newProd],
