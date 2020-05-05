@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { View, FlatList, Text, StyleSheet, Dimensions, Platform, Button } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
+import { View, FlatList, StyleSheet, Platform, Button } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductItem from '../../components/shop/ProductItem'
 import * as cartActions from '../../store/actions/cartActions'
@@ -8,6 +8,7 @@ import AddToCartPopup from '../../components/shop/AddToCartPopup'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../../components/UI/HeaderButton'
 import Colors from '../../constants/Colors'
+import { fetchProducts } from '../../store/actions/productsActions'
 
 const ProductsOverviewScreen = props => {
     
@@ -16,6 +17,10 @@ const ProductsOverviewScreen = props => {
 
     const fadeAnim = useRef(new Animated.Value(0)).current
     const [selectedItem, setSelectedItem] = useState('')
+
+    useEffect(()=>{
+        dispatch(fetchProducts())
+    }, [dispatch])
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
