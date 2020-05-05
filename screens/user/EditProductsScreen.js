@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useReducer } from 'react'
-import { StyleSheet, Platform, Alert } from 'react-native'
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import { StyleSheet, Platform, Alert, ActivityIndicator, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateProduct, createProduct } from '../../store/actions/productsActions'
 import Input from '../../components/UI/Input'
+import Colors from '../../constants/Colors'
 
 const formReducer = (state, action) => {
     if (action.type === 'UPDATE') {
@@ -32,6 +33,9 @@ const formReducer = (state, action) => {
 
 const EditProductsScreen = props => {
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState()
+
     const prodId = props.route.params.pid
     const currentProduct = useSelector(state => state.products.userProducts.find(prod => prod.id === prodId))
     const disablePrice = currentProduct ? true : false
@@ -56,19 +60,26 @@ const EditProductsScreen = props => {
 
     const [formState, formDispatch] = useReducer(formReducer, initialState)
 
-    const submitHandler = useCallback(() => {
+    const submitHandler = useCallback(async () => {
         if (!formState.formIsValid){
             Alert.alert('Invalid Product', 'Please check to make sure your form is filled out properly!', [
                 {text: 'Okay'}
             ])
             return
         }
-        if (currentProduct) {
-            dispatch(updateProduct(prodId, formState.inputValues.title, formState.inputValues.description, formState.inputValues.imgUrl))
-        } else {
-            dispatch(createProduct(formState.inputValues.title, formState.inputValues.description, formState.inputValues.imgUrl, +formState.inputValues.price))
+        setIsLoading(true)
+        setError(null)
+        try {
+            if (currentProduct) {
+                await dispatch(updateProduct(prodId, formState.inputValues.title, formState.inputValues.description, formState.inputValues.imgUrl))
+            } else {
+                await dispatch(createProduct(formState.inputValues.title, formState.inputValues.description, formState.inputValues.imgUrl, +formState.inputValues.price))
+            }
+            props.navigation.goBack()
+        } catch(err) {
+            setError(err)
         }
-        props.navigation.goBack()
+        setIsLoading(false)
     }, [
         prodId,
         formState,
@@ -79,6 +90,12 @@ const EditProductsScreen = props => {
         props.navigation.setParams({submitForm: submitHandler})
     }, [submitHandler])
 
+    useEffect(() => {
+        if (error){
+            Alert.alert('An error occurred!', error, [{text: 'Okay'}])
+        }
+    })
+
     const inputChangeHandler = useCallback((inputIdentifier, inputValue, inputValidity) => {
         formDispatch({
             type: 'UPDATE',
@@ -87,6 +104,12 @@ const EditProductsScreen = props => {
             input: inputIdentifier
         })
     }, [formDispatch])
+
+    if(isLoading){
+        return <View style={styles.centered}>
+            <ActivityIndicator size='large' color={Colors.primary}/>
+        </View>
+    }
 
     return(
         <ScrollView style={styles.form}>
@@ -156,6 +179,11 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
         color: '#ccc'
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
