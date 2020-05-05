@@ -75,7 +75,6 @@ export const fetchProducts = () => {
                 loadedProducts.push(new Product(key, 'u1', resData[key].title, resData[key].imageUrl, resData[key].description, resData[key].price))
             }
 
-            console.log(resData)
             dispatch({
                 type: SET_PRODUCTS,
                 products: loadedProducts
