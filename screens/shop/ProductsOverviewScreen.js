@@ -21,6 +21,7 @@ const ProductsOverviewScreen = props => {
     const fadeAnim = useRef(new Animated.Value(0)).current
     const [selectedItem, setSelectedItem] = useState('')
 
+    //Fetching products from DataBase
     const loadProducts = useCallback(async () => {
         setError(undefined)
         setLoading(true)
@@ -32,6 +33,16 @@ const ProductsOverviewScreen = props => {
         setLoading(false)
     }, [dispatch, setLoading, setError])
 
+    //Refetches data on page focu
+    useEffect(() => {
+        const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
+        
+        return () => {
+            willFocusSub.remove()
+        }
+    }, [loadProducts])
+
+    //Initially fetches data on first load
     useEffect(()=>{
         loadProducts()
     }, [dispatch, loadProducts])
@@ -65,7 +76,7 @@ const ProductsOverviewScreen = props => {
 
     if(error){
         return <View style={styles.centered}>
-            <DefaultText>An Error Occurred!</DefaultText>
+            <DefaultText style={styles.emptyMessageText}>An Error Occurred!</DefaultText>
             <Button title="Retry" onPress={loadProducts} />
         </View>
     }
@@ -78,7 +89,7 @@ const ProductsOverviewScreen = props => {
 
     if(!loading && products.length === 0) {
         return <View style={styles.centered}>
-            <DefaultText>No Products Found.</DefaultText>
+            <DefaultText style={styles.emptyMessageText}>No Products Found.</DefaultText>
         </View>
     }
 

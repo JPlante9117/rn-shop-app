@@ -6,7 +6,20 @@ export const UPDATE_PRODUCT = "UPDATE_PRODUCT"
 export const SET_PRODUCTS = "SET_PRODUCTS"
 
 export const deleteProduct = productId => {
-    return {type: DELETE_PRODUCT, pid: productId}
+    return async dispatch => {
+        await fetch(`https://rn-shop-app-ac605.firebaseio.com/products/${productId}.json`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        
+        dispatch({
+            type: DELETE_PRODUCT,
+            pid: productId
+        })
+    }
 }
 
 export const createProduct = (title, description, imageUrl, price) => {
@@ -69,12 +82,27 @@ export const fetchProducts = () => {
     }
 }
 
-export const updateProduct = (id, title, description, imageUrl, price) => {
-    return {type: UPDATE_PRODUCT, productData: {
-        id,
-        title,
-        description,
-        imageUrl,
-        price
-    }}
+export const updateProduct = (id, title, description, imageUrl) => {
+    return async dispatch => {
+            await fetch(`https://rn-shop-app-ac605.firebaseio.com/products/${id}.json`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    imageUrl
+                })
+            })
+
+            dispatch({
+                type: UPDATE_PRODUCT, productData: {
+                    id,
+                    title,
+                    description,
+                    imageUrl
+                }
+            })
+    }
 }
