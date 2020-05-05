@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { View, FlatList, StyleSheet, Platform, Button } from 'react-native'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { View, FlatList, StyleSheet, Platform, Button, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductItem from '../../components/shop/ProductItem'
 import * as cartActions from '../../store/actions/cartActions'
@@ -9,18 +9,32 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import HeaderButton from '../../components/UI/HeaderButton'
 import Colors from '../../constants/Colors'
 import { fetchProducts } from '../../store/actions/productsActions'
+import DefaultText from '../../components/UI/DefaultText'
 
 const ProductsOverviewScreen = props => {
     
     const products = useSelector(state => state.products.availableProducts)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(undefined)
     const dispatch = useDispatch()
 
     const fadeAnim = useRef(new Animated.Value(0)).current
     const [selectedItem, setSelectedItem] = useState('')
 
+    const loadProducts = useCallback(async () => {
+        setError(undefined)
+        setLoading(true)
+        try {
+            await dispatch(fetchProducts())
+        } catch(err){
+            setError(err.message)
+        }
+        setLoading(false)
+    }, [dispatch, setLoading, setError])
+
     useEffect(()=>{
-        dispatch(fetchProducts())
-    }, [dispatch])
+        loadProducts()
+    }, [dispatch, loadProducts])
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
@@ -49,6 +63,25 @@ const ProductsOverviewScreen = props => {
         setTimeout(() => fadeOut(), 2000)
     }
 
+    if(error){
+        return <View style={styles.centered}>
+            <DefaultText>An Error Occurred!</DefaultText>
+            <Button title="Retry" onPress={loadProducts} />
+        </View>
+    }
+
+    if(loading){
+        return <View style={styles.centered}>
+            <ActivityIndicator size='large' color={Colors.primary} />
+        </View>
+    }
+
+    if(!loading && products.length === 0) {
+        return <View style={styles.centered}>
+            <DefaultText>No Products Found.</DefaultText>
+        </View>
+    }
+
     return(
         <View style={styles.screen}>
             <FlatList
@@ -67,6 +100,17 @@ const ProductsOverviewScreen = props => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    emptyMessageText: {
+        fontSize: 40,
+        color: '#ccc',
+        textAlign: 'center',
+        marginTop: 50
     }
 })
 
