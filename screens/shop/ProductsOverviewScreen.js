@@ -15,6 +15,7 @@ const ProductsOverviewScreen = props => {
     
     const products = useSelector(state => state.products.availableProducts)
     const [loading, setLoading] = useState(false)
+    const [isRefreshing, setIsRefreshing] = useState(false)
     const [error, setError] = useState(undefined)
     const dispatch = useDispatch()
 
@@ -24,19 +25,18 @@ const ProductsOverviewScreen = props => {
     //Fetching products from DataBase
     const loadProducts = useCallback(async () => {
         setError(undefined)
-        setLoading(true)
+        setIsRefreshing(true)
         try {
             await dispatch(fetchProducts())
         } catch(err){
             setError(err.message)
         }
-        setLoading(false)
+        setIsRefreshing(false)
     }, [dispatch, setLoading, setError])
 
     //Refetches data on page focu
     useEffect(() => {
         const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
-        
         return () => {
             willFocusSub.remove()
         }
@@ -44,7 +44,8 @@ const ProductsOverviewScreen = props => {
 
     //Initially fetches data on first load
     useEffect(()=>{
-        loadProducts()
+        setLoading(true)
+        loadProducts().then(() => setLoading(false))
     }, [dispatch, loadProducts])
 
     const fadeIn = () => {
@@ -102,6 +103,8 @@ const ProductsOverviewScreen = props => {
                     <Button color={Colors.primary} title="View Details" onPress={() => selectItemHandler(itemData.item.id, itemData.item.title)} />
                     <Button color={Colors.primary} title="Add To Cart" onPress={() => addToCartHandler(itemData.item)}/>
                 </ProductItem>}
+                onRefresh={loadProducts}
+                refreshing={isRefreshing}
             />
             <AddToCartPopup opacity={fadeAnim} itemName={selectedItem} />
         </View>
