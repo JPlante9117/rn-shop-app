@@ -75,7 +75,6 @@ const AuthScreen = props => {
             setError(err.message)
             setIsLoading(false)
         }
-        props.navigation.navigate('Shop')
         
     }
 

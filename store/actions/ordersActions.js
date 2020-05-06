@@ -6,9 +6,10 @@ export const ADD_ORDER ='ADD_ORDER'
 export const GET_ORDERS = 'GET_ORDERS'
 
 export const fetchOrders = () => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const userId = getState().authentication.uid
         try {
-            const response = await fetch('https://rn-shop-app-ac605.firebaseio.com/orders/u1.json')
+            const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/orders/${userId}.json`)
 
             if (!response.ok) {
                 throw new Error('Something went wrong!')
@@ -32,9 +33,11 @@ export const fetchOrders = () => {
 }
 
 export const addOrder = (cartItems, totalAmount) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const token = getState().authentication.token
+        const userId = getState().authentication.uid
         const date = new Date()
-        const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/orders/u1.json`,
+        const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/orders/${userId}.json?auth=${token}`,
         {
             method: 'POST',
             headers: {
