@@ -14,6 +14,7 @@ import CustomHeaderButton from '../components/UI/HeaderButton'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import UserProductsScreen, {userProductsOptions} from '../screens/user/UserProductsScreen'
 import EditProductsScreen, { editProductsOptions } from '../screens/user/EditProductsScreen'
+import AuthScreen from '../screens/user/AuthScreen'
 
 enableScreens()
 
@@ -97,6 +98,14 @@ const ShopNavigator = props => {
     
     return(
         <NavigationContainer>
+            {1 === 1 ? (
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="SignIn"
+                        component={AuthScreen}
+                    />
+                </Stack.Navigator>
+            ) : (
             <Drawer.Navigator
                 initialRouteName="Shop"
                 drawerContentOptions={{
@@ -127,6 +136,7 @@ const ShopNavigator = props => {
                     }}
                 />
             </Drawer.Navigator>
+            )}
         </NavigationContainer>
     )
 }
