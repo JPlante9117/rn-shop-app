@@ -40,12 +40,12 @@ const ProductsOverviewScreen = props => {
         loadProducts().then(() => setLoading(false))
     }, [dispatch, loadProducts])
 
-    // useEffect(() => {
-    //     const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
-    //     return () => {
-    //         willFocusSub.remove()
-    //     }
-    // }, [loadProducts])
+    useEffect(() => {
+        const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
+        return () => {
+            willFocusSub()
+        }
+    }, [loadProducts])
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {

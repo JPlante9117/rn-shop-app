@@ -15,9 +15,9 @@ export const deleteProduct = productId => {
             }
         })
 
-        if(!response.ok){
-            throw new Error('Something went wrong!')
-        }
+        // if(!response.ok){
+        //     throw new Error('Something went wrong!')
+        // }
         
         dispatch({
             type: DELETE_PRODUCT,
@@ -28,8 +28,9 @@ export const deleteProduct = productId => {
 
 export const createProduct = (title, description, imageUrl, price) => {
     return async (dispatch, getState) => {
-        const token = getState().authentication.token
-        const userId = getState().authentication.uid
+        const token = await getState().authentication.token
+        const userId = await getState().authentication.uid
+        console.log(userId)
         const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/products.json?auth=${token}`,
         {
             method: 'POST',
@@ -46,8 +47,6 @@ export const createProduct = (title, description, imageUrl, price) => {
         })
 
         const resData = await response.json()
-
-        console.log(resData)
 
         dispatch({
             type: CREATE_PRODUCT,

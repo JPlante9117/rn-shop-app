@@ -48,25 +48,25 @@ export const signup = (email, password) => {
             const errorResData = await resp.json()
 
             const errorId = errorResData.error.message
-            let message = 'Something went wrong!'
+            let errMSG = 'Something went wrong!'
             console.log(errorId)
             switch(errorId){
                 case 'INVALID_EMAIL':
-                    message = 'This email is not valid!'
+                    errMSG = 'This email is not valid!'
                     break
                 case 'EMAIL_EXISTS':
-                    message = 'This email already exists!'
+                    errMSG = 'This email already exists!'
                     break
                 case 'INVALID_PASSWORD':
-                    message = 'The password is invalid!'
+                    errMSG = 'The password is invalid!'
                     break
                 case 'MISSING_PASSWORD':
-                    message = 'No password was given! Please supply a password.'
+                    errMSG = 'No password was given! Please supply a password.'
                     break
                 case 'WEAK_PASSWORD':
-                    message = 'Password is too short. Make sure it is at least 6 characters.'
+                    errMSG = 'Password is too short. Make sure it is at least 6 characters.'
             }
-            throw new Error(message)
+            throw new Error(errMSG)
         }
 
         const resData = await resp.json()
@@ -94,23 +94,23 @@ export const login = (email, password) => {
             const errorResData = await resp.json()
 
             const errorId = errorResData.error.message
-            let message = 'Something went wrong!'
+            let errMSG = 'Something went wrong!'
             console.log(errorId)
             switch(errorId){
                 case 'INVALID_EMAIL':
-                    message = 'This email is not valid!'
+                    errMSG = 'This email is not valid!'
                     break
                 case 'EMAIL_NOT_FOUND':
-                    message = 'This email is not found!'
+                    errMSG = 'This email is not found!'
                     break
                 case 'INVALID_PASSWORD':
-                    message = 'The password is invalid!'
+                    errMSG = 'The password is invalid!'
                     break
                 case 'MISSING_PASSWORD':
-                    message = 'No password was given! Please supply a password.'
+                    errMSG = 'No password was given! Please supply a password.'
                     break
             }
-            throw new Error(message)
+            throw new Error(errMSG)
         }
 
         const resData = await resp.json()
