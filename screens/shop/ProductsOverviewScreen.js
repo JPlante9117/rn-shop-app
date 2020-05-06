@@ -34,19 +34,18 @@ const ProductsOverviewScreen = props => {
         setIsRefreshing(false)
     }, [dispatch, setLoading, setError])
 
-    //Refetches data on page focu
-    useEffect(() => {
-        const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
-        return () => {
-            willFocusSub.remove()
-        }
-    }, [loadProducts])
-
     //Initially fetches data on first load
     useEffect(()=>{
         setLoading(true)
         loadProducts().then(() => setLoading(false))
     }, [dispatch, loadProducts])
+
+    // useEffect(() => {
+    //     const willFocusSub = props.navigation.addListener('willFocus', loadProducts)
+    //     return () => {
+    //         willFocusSub.remove()
+    //     }
+    // }, [loadProducts])
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
