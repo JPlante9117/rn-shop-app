@@ -1,5 +1,12 @@
 export const SIGNUP = 'SIGNUP'
 export const LOGIN = 'LOGIN'
+export const SET_DID_TRY_AL = 'SET_DID_TRY_AL'
+
+export const triedAutoLogin = () => {
+    return {
+        type: SET_DID_TRY_AL
+    }
+}
 
 export const signup = (email, password) => {
     return async dispatch => {
@@ -41,7 +48,9 @@ export const signup = (email, password) => {
         const resData = await resp.json()
         console.log(resData)
         dispatch({
-            type: SIGNUP
+            type: SIGNUP,
+            token: resData.idToken,
+            userId: resData.localId
         })
     }
 }
@@ -86,7 +95,9 @@ export const login = (email, password) => {
         const resData = await resp.json()
         console.log(resData)
         dispatch({
-            type: LOGIN
+            type: LOGIN,
+            token: resData.idToken,
+            userId: resData.localId
         })
     }
 }

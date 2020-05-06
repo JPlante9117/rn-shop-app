@@ -73,8 +73,10 @@ const AuthScreen = props => {
             }
         } catch(err) {
             setError(err.message)
+            setIsLoading(false)
         }
-        setIsLoading(false)
+        props.navigation.navigate('Shop')
+        
     }
 
     useEffect(() => {

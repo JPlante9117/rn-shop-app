@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import ProductsOverviewScreen, { productOverviewOptions } from '../screens/shop/ProductsOverviewScreen'
-import { NavigationContainer } from '@react-navigation/native'
 import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 import { enableScreens } from 'react-native-screens'
@@ -19,20 +18,20 @@ enableScreens()
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
-const ShopNavigator = props => {
-
-    const baseHeaderStyles = {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
-        headerTitleStyle: {
-            fontFamily: 'open-sans-bold'
-        },
-        headerBackTitleStyle: {
-            fontFamily: 'open-sans'
-        }
+const baseHeaderStyles = {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
+    headerTitleStyle: {
+        fontFamily: 'open-sans-bold'
+    },
+    headerBackTitleStyle: {
+        fontFamily: 'open-sans'
     }
+}
+
+export const ShopNavigator = props => {
 
     const storeStack = () => {
         return( 
@@ -95,18 +94,6 @@ const ShopNavigator = props => {
     }
     
     return(
-        <NavigationContainer>
-            {1 === 1 ? (
-                <Stack.Navigator
-                    screenOptions={baseHeaderStyles}
-                >
-                    <Stack.Screen
-                        name="SignIn"
-                        component={AuthScreen}
-                        options={authScreenOptions}
-                    />
-                </Stack.Navigator>
-            ) : (
             <Drawer.Navigator
                 initialRouteName="Shop"
                 drawerContentOptions={{
@@ -137,8 +124,20 @@ const ShopNavigator = props => {
                     }}
                 />
             </Drawer.Navigator>
-            )}
-        </NavigationContainer>
+    )
+}
+
+export const AuthNavigator = props => {
+    return(
+        <Stack.Navigator
+        screenOptions={baseHeaderStyles}
+    >
+        <Stack.Screen
+            name="SignIn"
+            component={AuthScreen}
+            options={authScreenOptions}
+        />
+    </Stack.Navigator>
     )
 }
 

@@ -86,8 +86,9 @@ export const fetchProducts = () => {
 }
 
 export const updateProduct = (id, title, description, imageUrl) => {
-    return async dispatch => {
-            const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/products/${id}.json`, {
+    return async (dispatch, getState) => {
+            const token = getState().authentication.token
+            const response = await fetch(`https://rn-shop-app-ac605.firebaseio.com/products/${id}.json?auth=${token}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
