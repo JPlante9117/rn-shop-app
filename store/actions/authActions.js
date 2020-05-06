@@ -5,17 +5,22 @@ export const AUTHENTICATE = 'AUTHENTICATE'
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL'
 export const LOGOUT = 'LOGOUT'
 
+let timer
+
 export const logout = () => {
+    clearLogoutTimer()
+    AsyncStorage.removeItem('userData')
     return {
         type: LOGOUT
     }
 }
 
-export const authenticate = (userId, token) => {
-    return {
-        type: AUTHENTICATE,
-        uid: userId,
-        token: token
+export const authenticate = (userId, token, expiryTime) => {
+    return dispatch => {
+        dispatch(setLogoutTimer(expiryTime))
+        dispatch({type: AUTHENTICATE,
+            uid: userId,
+            token: token})
     }
 } 
 
@@ -58,12 +63,14 @@ export const signup = (email, password) => {
                 case 'MISSING_PASSWORD':
                     message = 'No password was given! Please supply a password.'
                     break
+                case 'WEAK_PASSWORD':
+                    message = 'Password is too short. Make sure it is at least 6 characters.'
             }
             throw new Error(message)
         }
 
         const resData = await resp.json()
-        dispatch(authenticate(resData.localId, resData.idToken))
+        dispatch(authenticate(resData.localId, resData.idToken, parseInt(resData.expiresIn) * 1000))
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000).toISOString()
         saveDataToStorage(resData.idToken, resData.localId, expirationDate)
     }
@@ -108,15 +115,21 @@ export const login = (email, password) => {
 
         const resData = await resp.json()
         
-        dispatch(authenticate(resData.localId, resData.idToken))
+        dispatch(authenticate(resData.localId, resData.idToken, parseInt(resData.expiresIn) * 1000))
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000).toISOString()
         saveDataToStorage(resData.idToken, resData.localId, expirationDate)
     }
 }
 
+const clearLogoutTimer = () => {
+    if(timer){
+        clearTimeout(timer)
+    }
+}
+
 const setLogoutTimer = expirTime => {
     return dispatch => {
-        setTimeout(() => {
+        timer = setTimeout(() => {
             dispatch(logout())
         }, expirTime)
     }

@@ -107,7 +107,7 @@ const AuthScreen = props => {
                             required
                             minLength={5}
                             autoCapitalize="none"
-                            errorText="Please enter a valid password (min 5 characters)"
+                            errorText="Please enter a valid password (min 6 characters)"
                             onInputChange={inputChangeHandler}
                             initalValue=""
                         />

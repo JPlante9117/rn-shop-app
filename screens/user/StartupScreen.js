@@ -25,8 +25,9 @@ const StartupScreen = props => {
                 dispatch(triedAutoLogin())
                 return
             }
+            const expirationTime = expirationDate.getTime() - new Date().getTime()
 
-            dispatch(authenticate(uid, token))
+            dispatch(authenticate(uid, token, parseInt(expirationTime) * 1000))
         }
         tryLogin()
     }, [dispatch, authenticate])
