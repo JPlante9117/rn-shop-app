@@ -1,6 +1,5 @@
 import React, { useReducer, useCallback, useState, useEffect } from 'react'
 import { StyleSheet, View, KeyboardAvoidingView, Button, ActivityIndicator, Alert } from 'react-native'
-import DefaultText from '../../components/UI/DefaultText'
 import { ScrollView } from 'react-native-gesture-handler'
 import Card from '../../components/UI/Card'
 import Input from '../../components/UI/Input'

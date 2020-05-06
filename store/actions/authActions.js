@@ -1,4 +1,5 @@
 import { AsyncStorage } from "react-native"
+import { API_KEY } from "../../KEYS/firebaseAPIKey"
 
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL'
@@ -26,7 +27,7 @@ export const triedAutoLogin = () => {
 
 export const signup = (email, password) => {
     return async dispatch => {
-        const resp = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCqx1bvkiDewT2bpSohXETetD1UOb8XnF8', {
+        const resp = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,7 +71,7 @@ export const signup = (email, password) => {
 
 export const login = (email, password) => {
     return async dispatch => {
-        const resp = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCqx1bvkiDewT2bpSohXETetD1UOb8XnF8', {
+        const resp = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -110,6 +111,14 @@ export const login = (email, password) => {
         dispatch(authenticate(resData.localId, resData.idToken))
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000).toISOString()
         saveDataToStorage(resData.idToken, resData.localId, expirationDate)
+    }
+}
+
+const setLogoutTimer = expirTime => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout())
+        }, expirTime)
     }
 }
 
