@@ -9,12 +9,10 @@ import { enableScreens } from 'react-native-screens'
 import ProductDetailsScreen, { productDetailsOptions } from '../screens/shop/ProductDetailsScreen'
 import OrdersScreen, { ordersOptions } from '../screens/shop/OrdersScreen'
 import CartScreen, { cartOptions } from '../screens/shop/CartScreen'
-import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-import CustomHeaderButton from '../components/UI/HeaderButton'
 import { Ionicons, Entypo } from '@expo/vector-icons'
 import UserProductsScreen, {userProductsOptions} from '../screens/user/UserProductsScreen'
 import EditProductsScreen, { editProductsOptions } from '../screens/user/EditProductsScreen'
-import AuthScreen from '../screens/user/AuthScreen'
+import AuthScreen, {authScreenOptions} from '../screens/user/AuthScreen'
 
 enableScreens()
 
@@ -99,10 +97,13 @@ const ShopNavigator = props => {
     return(
         <NavigationContainer>
             {1 === 1 ? (
-                <Stack.Navigator>
+                <Stack.Navigator
+                    screenOptions={baseHeaderStyles}
+                >
                     <Stack.Screen
                         name="SignIn"
                         component={AuthScreen}
+                        options={authScreenOptions}
                     />
                 </Stack.Navigator>
             ) : (
